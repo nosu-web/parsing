@@ -9,14 +9,14 @@ $doc->loadHTML($html);
 $xpath = new DOMXpath($doc);
 
 /* Находим все контейнеры div с классом item (карточки новостей) в контейнере div склассом news-list */
-foreach ($xpath->query("//div[contains(@class, 'news-list')]//div[contains(@class, 'item')]") as $item) {
+foreach ($xpath->query("//div[contains(@class, 'news-list')]/div[contains(@class, 'item')]") as $item) {
   /* Находим DOM-элемент заголовка */
-  $title = $xpath->query(".//div[contains(@class, 'title')]//a", $item);
+  $title = $xpath->query(".//div[contains(@class, 'title')]/a", $item);
   /* Получаем текстовое содержимое заголовка */
   $title_text = $title[0]->textContent;
 
   /* Находим DOM-элемент изображения */
-  $image = $xpath->query(".//a//img", $item);
+  $image = $xpath->query(".//a/img", $item);
   /* Если элемент не пустой получаем значение атрибута src */
   if($image[0] !== null)
     $image_src = $image[0]->getAttribute('src');
