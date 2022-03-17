@@ -8,8 +8,8 @@ $doc->loadHTML($html);
 /* Класс DOMXpath реализует язык запросов XPath к элементам XML-документа */
 $xpath = new DOMXpath($doc);
 
-$img_full_path = '/uploads/';
-$img_tmb_path = '/uploads/thumbnails';
+$img_full_path = './uploads/';
+$img_tmb_path = './uploads/thumbnails/';
 
 /* Находим все контейнеры div с классом item (карточки новостей) в контейнере div склассом news-list */
 foreach ($xpath->query("//div[contains(@class, 'news-list')]//div[contains(@class, 'item')]") as $item) {
@@ -24,16 +24,27 @@ foreach ($xpath->query("//div[contains(@class, 'news-list')]//div[contains(@clas
   /* Находим DOM-элемент изображения */
   $image = $xpath->query(".//a//img", $item);
   /* Если элемент не пустой получаем значение атрибута src */
+
   if($image[0] !== null) {
-    /* Миниатюра */
+    // Миниатюра
     $image_tmb = $image[0]->getAttribute('src');               // Ссылка на миниатюру
     $image_tmb_binary = file_get_contents($image_tmb);         // Бинарный код изображения
 
-    /* Исходное изображение */
-    $image_full = str_replace('-350x230', '', $image_tmb);  // Ссылка на исходное
-    $image_full_binary = file_get_contents($image_full);    // Бинарный код изображения
+    if(!is_dir($img_tmb_path))
+        mkdir($img_tmb_path);
+    file_put_contents($img_tmb_path.microtime(true).'.jpg', $image_tmb_binary);
+
+
+    // Исходное изображение
+    $image_full = str_replace('-350x230', '', $image_tmb);      // Ссылка на исходное
+    $image_full_binary = file_get_contents($image_full);        // Бинарный код изображения
+
+    if(!is_dir($img_full_path))
+        mkdir($img_full_path);
+    file_put_contents($img_full_path.microtime(true).'.jpg', $image_full_binary);
   }
   
+
   echo "<h3>{$title_text}</h3>";
   echo "<date>{$date_text}<date>";
   echo "<div><img src=\"{$image_tmb}\"></div>";
