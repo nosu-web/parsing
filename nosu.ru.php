@@ -24,13 +24,15 @@ foreach ($xpath->query("//div[contains(@class, 'news-list')]//div[contains(@clas
   /* Находим DOM-элемент изображения */
   $image = $xpath->query(".//a//img", $item);
   /* Если элемент не пустой получаем значение атрибута src */
-  if($image[0] !== null)
-    $image_tmb = $image[0]->getAttribute('src'); // Ссылка на миниатюру
+  if($image[0] !== null) {
+    /* Миниатюра */
+    $image_tmb = $image[0]->getAttribute('src');               // Ссылка на миниатюру
+    $image_tmb_binary = file_get_contents($image_tmb);         // Бинарный код изображения
 
-  $image_tmb_binary = file_get_contents($image_tmb);
-  echo $image_tmb_binary;
-
-  $image_full = str_replace('-350x230', '', $image_tmb);
+    /* Исходное изображение */
+    $image_full = str_replace('-350x230', '', $image_tmb);  // Ссылка на исходное
+    $image_full_binary = file_get_contents($image_full);    // Бинарный код изображения
+  }
   
   echo "<h3>{$title_text}</h3>";
   echo "<date>{$date_text}<date>";
