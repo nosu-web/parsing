@@ -58,19 +58,3 @@ function getXpath($url) {
 
   return $xpath;
 }
-
-
-
-  /*$news_txt='';
-  $aa = $mainPageXpath->query(".//a", $item);
-  if($aa[0] !== null) {
-    $news_url = $aa[0]->getAttribute('href');
-    
-    $news_txt = getNewsText($news_url);
-  }*/
-/*
-foreach($news_xpath->query("//div[@class='content-block content-text']//p") as $item) {
-  $text .= $item->textContent."\n";
-}
-
-$html_doc = null;*/
