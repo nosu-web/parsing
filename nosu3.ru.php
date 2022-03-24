@@ -1,6 +1,6 @@
 <?php
 /* Подключаемся к БД (имя сервера, имя пользователя БД, пароль БД, имя БД)*/
-$mysqli = new mysqli("localhost", "root", "", "ossetianews");
+$mysqli = new mysqli("localhost", "cc08668_osnews", "Pm21Pm21Pm21", "cc08668_osnews");
 
 /* Получаем Xpath главной страницы */
 $mainPageXpath = getXpath('https://nosu.ru');
@@ -19,7 +19,9 @@ foreach ($mainPageXpath->query("//div[contains(@class, 'news-list')]//div[contai
   /* Получаем Xpath новости */
   $newsText = null;
   $articleXpath = getXpath($newsUrl);
-  foreach($articleXpath->query("//div[contains(@class, 'content-text')]//p") as $articleElement) {
+  foreach($articleXpath->query("//div[contains(@class, 'content-text')]//p") as $key => $articleElement) {
+    if($key == 0)
+      	continue;
     $newsText .= $articleElement->textContent."\n";
   }
 
@@ -28,6 +30,7 @@ foreach ($mainPageXpath->query("//div[contains(@class, 'news-list')]//div[contai
   /* Получаем дату новости */
   $date = $mainPageXpath->query(".//div[contains(@class, 'date')]", $item);
   $dateText = $date[0]->textContent;
+  $newDate = date("Y-m-d 00:00:00", strtotime($dateText));
 
   /* Находим DOM-элемент изображения */
   $image = $mainPageXpath->query(".//a//img", $item);
@@ -42,8 +45,8 @@ foreach ($mainPageXpath->query("//div[contains(@class, 'news-list')]//div[contai
 
   /* Добавляем новость в таблицу news*/
   $mysqli->query("INSERT INTO `news`
-  (`website_id`, `title`,`text`, `img`)
-  VALUES (3, '{$titleText}', '{$newsText}', '{$imageFull}')");
+  (`website_id`,`title`,`date`,`text`,`img`,`url`)
+  VALUES (16, '{$titleText}', '{$newDate}', '{$newsText}', '{$imageFull}','{$newsUrl}')");
 }
 
 function getXpath($url) {
