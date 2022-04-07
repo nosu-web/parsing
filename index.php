@@ -5,7 +5,7 @@ include("includes/mysql.inc.php");
 /* Выбираем 10 последних новостей из таблицы news */
 $result = $mysqli->query("SELECT * FROM `news` ORDER BY `date` DESC LIMIT 10");
 
-if(isset($_POST["submit"])) {
+if (isset($_POST["submit"])) {
     $search_phrase = $_POST["search_phrase"];
 
     $result = $mysqli->query("SELECT * FROM `news`
@@ -21,12 +21,17 @@ $news = '';
 while ($row = $result->fetch_assoc()) {
 
     $title = $row['title'];
-    $date = date("d.m.Y H:i", strtotime($row['text']));
     $text = $row['text'];
+    $date = date("d.m.Y H:i", strtotime($row['date']));
     $img = $row['img'];
     $url = $row['url'];
-    
-    $text = mb_substr($text, 0, 100).'...';
+
+    $text = mb_substr($text, 0, 100) . '...';
+    if(isset($_POST['search_phrase']))
+    {
+        $text = highlightKeywords($search_phrase, $text);
+        $title = highlightKeywords($search_phrase, $title);
+    }
 
     $news .= "
     <div class=\"card my-2\">
@@ -38,6 +43,9 @@ while ($row = $result->fetch_assoc()) {
             <a href=\"{$url}\" class=\"btn btn-primary\" target=\"_blank\">Подробнее</a>
         </div>
     </div>";
+}
+function highlightKeywords($keyword, $string) {
+    return preg_replace("/(\p{L}*?)(".preg_quote($keyword).")(\p{L}*)/ui", "$1<span style='background-color:yellow;'>$2</span>$3", $string);
 }
 ?>
 <!DOCTYPE html>
@@ -79,7 +87,7 @@ while ($row = $result->fetch_assoc()) {
     <main class="mt-3">
         <div class="container">
             <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
-                <?=$news;?>
+                <?= $news; ?>
             </div>
         </div>
     </main>
