@@ -5,7 +5,7 @@ include("includes/mysql.inc.php");
 /* Выбираем 10 последних новостей из таблицы news */
 $result = $mysqli->query("SELECT * FROM `news` ORDER BY `date` DESC LIMIT 10");
 
-if(isset($_POST["submit"])) {
+if (isset($_POST["submit"])) {
     $search_phrase = $_POST["search_phrase"];
 
     $result = $mysqli->query("SELECT * FROM `news`
@@ -25,8 +25,8 @@ while ($row = $result->fetch_assoc()) {
     $text = $row['text'];
     $img = $row['img'];
     $url = $row['url'];
-    
-    $text = mb_substr($text, 0, 100).'...';
+
+    $text = mb_substr($text, 0, 100) . '...';
 
     $news .= "
     <div class=\"card my-3\">
@@ -78,7 +78,7 @@ while ($row = $result->fetch_assoc()) {
     <main class="mt-3">
         <div class="container">
             <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
-                <?=$news;?>
+                <?= $news; ?>
             </div>
         </div>
     </main>
