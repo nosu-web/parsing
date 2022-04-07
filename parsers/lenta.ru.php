@@ -1,5 +1,5 @@
 <?php
-include("./includes/mysql.inc.php");
+include("../includes/mysql.inc.php");
 
 /* Получаем Xpath главной страницы */
 $mainPageXpath = getXpath('https://lenta.ru/tags/geo/severnaya-osetiya');
@@ -13,32 +13,32 @@ foreach ($mainPageXpath->query(".//ul[contains(@class, 'content-tags-page__body'
 
   /* Получаем ссылку на новость */
   $link = $mainPageXpath->query(".//a", $item);
-  if($link[0] !== null) {
-    $newsUrl = 'https://lenta.ru/'.$link[0]->getAttribute('href');
+  if ($link[0] !== null) {
+    $newsUrl = 'https://lenta.ru/' . $link[0]->getAttribute('href');
   }
 
   /* Получаем дату новости */
   $date = $mainPageXpath->query(".//div[contains(@class, 'card-full-news__info')]//time", $item);
   $dateText = $date[0]->textContent;
   $time = explode(",", $dateText)[0];
-  $newdate = explode("/", $newsUrl)[5].'-'.explode("/", $newsUrl)[6].'-'.explode("/", $newsUrl)[7];
-  $dateTime = $newdate.' '.$time;
+  $newdate = explode("/", $newsUrl)[5] . '-' . explode("/", $newsUrl)[6] . '-' . explode("/", $newsUrl)[7];
+  $dateTime = $newdate . ' ' . $time;
 
   /* Получаем Xpath новости */
   $newsText = null;
   $articleXpath = getXpath($newsUrl);
 
-  foreach($articleXpath->query(".//div[contains(@class, 'topic-body__content')]//p") as $articleItem) {
-    $newsText .= $articleItem->textContent."\n";
+  foreach ($articleXpath->query(".//div[contains(@class, 'topic-body__content')]//p") as $articleItem) {
+    $newsText .= $articleItem->textContent . "\n";
   }
 
-  foreach($articleXpath->query(".//div[contains(@class, 'topic-page')]") as $articleElement) {
+  foreach ($articleXpath->query(".//div[contains(@class, 'topic-page')]") as $articleElement) {
 
     /* Находим DOM-элемент изображения */
     $image = $articleXpath->query(".//img[contains(@class, 'picture__image')]", $articleElement);
     /* Если элемент не пустой получаем значение атрибута src */
-    
-    if($image[0] !== null) {
+
+    if ($image[0] !== null) {
       //Миниатюра 
       $imageTmb = $image[0]->getAttribute('src');               // Ссылка на миниатюру
       //Исходное изображение 
@@ -60,7 +60,8 @@ foreach ($mainPageXpath->query(".//ul[contains(@class, 'content-tags-page__body'
   VALUES (14, '{$titleText}', '{$dateTime}', '{$newsText}', '{$imageFull}','{$newsUrl}')");
 }
 
-function getXpath($url) {
+function getXpath($url)
+{
   /* Получаем исходный код страницы */
   $html = file_get_contents($url);
   $html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");

@@ -1,6 +1,6 @@
 <?php
 /* Подключаемся к БД (имя сервера, имя пользователя БД, пароль БД, имя БД)*/
-$mysqli = new mysqli("localhost", "cc08668_osnews", "Pm21Pm21Pm21", "cc08668_osnews");
+include("../includes/mysql.inc.php");
 
 /* Получаем Xpath главной страницы */
 $mainPageXpath = getXpath('https://nosu.ru');
@@ -12,17 +12,17 @@ foreach ($mainPageXpath->query("//div[contains(@class, 'news-list')]//div[contai
 
   /* Получаем ссылку на новость */
   $link = $mainPageXpath->query(".//a", $item);
-  if($link[0] !== null) {
+  if ($link[0] !== null) {
     $newsUrl = $link[0]->getAttribute('href');
   }
 
   /* Получаем Xpath новости */
   $newsText = null;
   $articleXpath = getXpath($newsUrl);
-  foreach($articleXpath->query("//div[contains(@class, 'content-text')]//p") as $key => $articleElement) {
-    if($key == 0)
-      	continue;
-    $newsText .= $articleElement->textContent."\n";
+  foreach ($articleXpath->query("//div[contains(@class, 'content-text')]//p") as $key => $articleElement) {
+    if ($key == 0)
+      continue;
+    $newsText .= $articleElement->textContent . "\n";
   }
 
   /* Получаем текстовое содержимое заголовка */
@@ -35,8 +35,8 @@ foreach ($mainPageXpath->query("//div[contains(@class, 'news-list')]//div[contai
   /* Находим DOM-элемент изображения */
   $image = $mainPageXpath->query(".//a//img", $item);
   /* Если элемент не пустой получаем значение атрибута src */
-  
-  if($image[0] !== null) {
+
+  if ($image[0] !== null) {
     //Миниатюра 
     $imageTmb = $image[0]->getAttribute('src');           // Ссылка на миниатюру
     //Исходное изображение 
@@ -49,7 +49,8 @@ foreach ($mainPageXpath->query("//div[contains(@class, 'news-list')]//div[contai
   VALUES (16, '{$titleText}', '{$newDate}', '{$newsText}', '{$imageFull}','{$newsUrl}')");
 }
 
-function getXpath($url) {
+function getXpath($url)
+{
   /* Получаем исходный код страницы */
   $html = file_get_contents($url);
   /* Класс DOMDocument предназначен для работы с кодом HTML и XML */

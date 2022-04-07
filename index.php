@@ -77,10 +77,8 @@ while ($row = $result->fetch_assoc()) {
     </header>
     <main class="mt-3">
         <div class="container">
-            <div class="row">
-                <div class="col">
-                    <?=$news;?>
-                </div>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+                <?=$news;?>
             </div>
         </div>
     </main>
