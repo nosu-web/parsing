@@ -21,7 +21,7 @@ $news = '';
 while ($row = $result->fetch_assoc()) {
 
     $title = $row['title'];
-    $date = $row['date'];
+    $date = date("d.m.Y H:i", strtotime($row['text']));
     $text = $row['text'];
     $img = $row['img'];
     $url = $row['url'];
@@ -29,10 +29,11 @@ while ($row = $result->fetch_assoc()) {
     $text = mb_substr($text, 0, 100).'...';
 
     $news .= "
-    <div class=\"card my-3\">
-        <!--<img src=\"{$img}\" class=\"card-img-top\" alt=\"{$title}\">-->
+    <div class=\"card my-2\">
+        <img src=\"{$img}\" class=\"card-img-top\" alt=\"{$title}\">
         <div class=\"card-body\">
             <h5 class=\"card-title\">{$title}</h5>
+            <h6 class=\"card-subtitle mb-2 text-muted\">{$date}</h6>
             <p class=\"card-text\">{$text}</p>
             <a href=\"{$url}\" class=\"btn btn-primary\" target=\"_blank\">Подробнее</a>
         </div>
