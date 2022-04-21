@@ -1,6 +1,8 @@
 <?php
 /* Подключаем файл с соединением к БД */
 include("includes/mysql.inc.php");
+/* Проверка авторизация */
+include("includes/auth.inc.php");
 
 /* Выбираем 10 последних новостей из таблицы news */
 $result = $mysqli->query("SELECT * FROM `news` ORDER BY `date` DESC LIMIT 10");
