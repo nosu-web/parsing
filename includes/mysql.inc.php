@@ -1,3 +1,3 @@
 <?php
 /* Подключаемся к БД (имя сервера, имя пользователя БД, пароль БД, имя БД)*/
-$mysqli = new mysqli("5.23.50.183", "cc08668_osnews", "Pm21Pm21Pm21", "cc08668_osnews");
+$mysqli = new mysqli("localhost", "root", "", "ossetianews");
