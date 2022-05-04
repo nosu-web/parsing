@@ -59,36 +59,13 @@ function highlightKeywords($keyword, $string) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Новости Осетии</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">Новости Осетии</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">Новости</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">О проекте</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex" action="" method="post">
-                        <input class="form-control me-2" name="search_phrase" type="search" placeholder="Введите запрос" aria-label="Найти">
-                        <button class="btn btn-outline-success" name="submit" type="submit">Найти</button>
-                    </form>
-                    <form class="d-flex" action="" method="post">
-                        <button class="btn btn-outline-info" name="logout" type="submit">Выход</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <?php
+    require 'templates/header.tpl.php';
+    ?>
     <main class="mt-3">
         <div class="container">
             <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
@@ -96,6 +73,8 @@ function highlightKeywords($keyword, $string) {
             </div>
         </div>
     </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
