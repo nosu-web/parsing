@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Апр 27 2022 г., 09:18
+-- Время создания: Май 04 2022 г., 10:35
 -- Версия сервера: 5.7.35-38
 -- Версия PHP: 7.1.33
 
@@ -210,14 +210,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(70) NOT NULL,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `users`
 --
 
 INSERT INTO `users` (`id`, `login`, `password`, `name`) VALUES
-(1, 'ivan', '$2y$10$PYklB7mDCj0Qfim0QxsR..SuZAmYqY4noqitv9rTSXozgBqri9Sx2', 'Иван');
+(1, 'ivan', '$2y$10$qBgx/2r4fGF6Rac6lqwwyuuClQerydvTOpTAqSbbSMnxenHrRNT9q', 'Иван');
 
 -- --------------------------------------------------------
 
