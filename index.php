@@ -82,6 +82,9 @@ function highlightKeywords($keyword, $string) {
                         <input class="form-control me-2" name="search_phrase" type="search" placeholder="Введите запрос" aria-label="Найти">
                         <button class="btn btn-outline-success" name="submit" type="submit">Найти</button>
                     </form>
+                    <form class="d-flex" action="" method="post">
+                        <button class="btn btn-outline-info" name="logout" type="submit">Выход</button>
+                    </form>
                 </div>
             </div>
         </nav>
