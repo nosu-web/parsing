@@ -1,7 +1,10 @@
-<header>
-    <?php
+<?php
+if(isset($_COOKIE['theme']))
     $theme = $_COOKIE['theme'];
-    ?>
+else
+$theme = 'navbar-light bg-light';
+?>
+<header>
     <nav class="navbar navbar-expand-lg <?=$theme?>">
         <div class="container">
             <a class="navbar-brand" href="/">Новости Осетии</a>
@@ -26,7 +29,7 @@
                     <button class="btn btn-outline-success" name="submit" type="submit">Найти</button>
                 </form>
                 <form class="d-flex" action="" method="post">
-                    <button class="btn btn-outline-info" name="logout" type="submit">Выход</button>
+                    <a href="?logout" class="btn btn-outline-info" name="logout" type="submit">Выход</a>
                 </form>
             </div>
         </div>
