@@ -52,4 +52,8 @@ function getCookieValueByName(cookieName) {
     })
     console.log(cookie);
     return cookie[cookieName];
+<<<<<<< HEAD
   }
+=======
+  }
+>>>>>>> dde619d234e686230fa701e186f64b040d4796bf
