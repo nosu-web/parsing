@@ -5,7 +5,7 @@ include("includes/mysql.inc.php");
 include("includes/auth.inc.php");
 
 /* Выбираем 10 последних новостей из таблицы news */
-$result = $mysqli->query("SELECT * FROM `news` ORDER BY `date` DESC LIMIT 10");
+$result = $mysqli->query("SELECT * FROM `news` ORDER BY `date` DESC LIMIT 9");
 
 if (isset($_POST["submit"])) {
     $search_phrase = $_POST["search_phrase"];
@@ -16,7 +16,7 @@ if (isset($_POST["submit"])) {
     OR 
         `text` LIKE '%{$search_phrase}%'
     ORDER BY
-        `date` DESC LIMIT 10");
+        `date` DESC LIMIT 9");
 }
 
 $news = '';
@@ -68,9 +68,12 @@ function highlightKeywords($keyword, $string) {
     ?>
     <main class="mt-3">
         <div class="container">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+            <div class="news row row-cols-1 row-cols-md-2 row-cols-xl-3">
                 <?= $news; ?>
             </div>
+        </div>
+        <div class="container">
+            <button class="btn btn-primary" id="loadNews">Загрузить еще</button>
         </div>
     </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
